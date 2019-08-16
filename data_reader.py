@@ -20,19 +20,20 @@ def read_binary_lc(file_path, dimension):
 
 def read_wave_and_lc_features(filelist_scpfile, wave_dir, lc_dir):
     filelist = []
-    with codecs.open(filelist_scpfile, 'r', 'utf-8') as f:
+    with open(filelist_scpfile, 'r', encoding="utf-8") as f:
         for line in f:
-            line = line.strip()
-            file_id = line
+            #line = line.strip()
+            file_id = line.split('\n')[0]
+            print(file_id)
             filelist.append(file_id)
 
     random.shuffle(filelist)
     for file_id in filelist:
-        wave_path = os.path.join(wave_dir, file_id + '.wav')
+        #wave_path = os.path.join(wave_dir, file_id + '.wav')
         lc_path = os.path.join(lc_dir, file_id + '.mel')
 
         # read wave
-        audio, _ = librosa.load(wave_path, sr=hparams.sample_rate, mono=True)
+        audio, _ = librosa.load(file_id, sr=hparams.sample_rate, mono=True)
         audio = audio.reshape(-1, 1)
 
         # read local condition
