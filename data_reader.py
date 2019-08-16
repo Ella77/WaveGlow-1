@@ -30,8 +30,9 @@ def read_wave_and_lc_features(filelist_scpfile, wave_dir, lc_dir):
     random.shuffle(filelist)
     for file_id in filelist:
         #wave_path = os.path.join(wave_dir, file_id + '.wav')
-        lc_path = os.path.join(lc_dir, file_id + '.mel')
-
+        #lc_path = os.path.join(lc_dir, file_id + '.mel')
+        lc_path = os.path.join(lc_dir, file_id.split('.')[0]+'.'+file_id.split('.')[1] + '.mel')
+ 
         # read wave
         audio, _ = librosa.load(file_id, sr=hparams.sample_rate, mono=True)
         audio = audio.reshape(-1, 1)
